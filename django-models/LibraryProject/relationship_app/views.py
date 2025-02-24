@@ -6,11 +6,11 @@ from django.template import loader
 
 # Create your views here.
 def list_books(request):
-    books = Book.objects.values('title', 'author')
+    books = Book.objects.all()
     context = {
         'books': books
     }
-    return(request, "list_books.html", context)
+    return(request, "relationship_app/list_books.html", context)
 
 class LibraryDetail(DetailView):
     model = Library
