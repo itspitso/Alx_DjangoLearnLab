@@ -4,6 +4,7 @@ from .models import Book
 from .models import Library
 from django.http import HttpResponse
 from django.template import loader
+from django.contrib.auth.forms import UserCreationForm
 
 # Create your views here.
 def list_books(request):
@@ -22,3 +23,6 @@ class LibraryDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         return context
 
+def register(request):
+    form = UserCreationForm()
+    return render(request, 'templates/relationship_app/register.html', {'form': form})
