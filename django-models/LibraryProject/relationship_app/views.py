@@ -1,11 +1,15 @@
 from django.shortcuts import render
 from django.views.generic.detail import DetailView
+from django.views.generic import View
 from .models import Book
 from .models import Library
 from django.http import HttpResponse
 from django.template import loader
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login
+from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LogoutView
 from django.contrib.auth import authenticate
 from django.contrib.auth import logout
 
@@ -30,14 +34,9 @@ def register(request):
     form = UserCreationForm()
     return render(request, 'templates/relationship_app/register.html', {'form': form})
 
-def login(request):
-    username = request.POST['username']
-    password = request.POST['password']
-    user = authenticate(request, username=username, password=password)
-    if user is not None:
-        login(request, user)
-    else:
-        return "User not found"
-    
-def logout(request):
-    logout(request)
+class LoginView(LoginView):
+    template_name = 'templates/relationship_app/login.html'
+    form = AuthenticationForm()
+
+class LogoutView(LogoutView):
+    template_name = 'templates/relationship_app/logout.html'
