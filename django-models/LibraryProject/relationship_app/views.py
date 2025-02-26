@@ -5,6 +5,9 @@ from .models import Library
 from django.http import HttpResponse
 from django.template import loader
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
+from django.contrib.auth import authenticate
+from django.contrib.auth import logout
 
 # Create your views here.
 def list_books(request):
@@ -26,3 +29,15 @@ class LibraryDetailView(DetailView):
 def register(request):
     form = UserCreationForm()
     return render(request, 'templates/relationship_app/register.html', {'form': form})
+
+def login(request):
+    username = request.POST['username']
+    password = request.POST['password']
+    user = authenticate(request, username=username, password=password)
+    if user is not None:
+        login(request, user)
+    else:
+        return "User not found"
+    
+def logout(request):
+    logout(request)
