@@ -3,7 +3,7 @@ from django.urls import include
 from . import views 
 from .views import list_books, LibraryDetailView, LoginView, LogoutView
 from . import admin_view
-from . import librarian_view
+from .import librarian_view
 from . import member_view
 
 urlpatterns = [
@@ -12,7 +12,7 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     path('login/', LoginView.as_view(template_name='relationship_app/login.html'), name='login'),
     path('logout/', LogoutView.as_view(template_name='relationship_app/logout.html'), name='logout'),
-    path('admin/', include('admin_view')),
-    path('librarian/', include('librarian_view')),
-    path('member/', include('admin_view')),
+    path('admin-view/', admin_view, name='admin_view'),
+    path('librarian-view/', librarian_view, name='librarian_view'),
+    path('member-view/', member_view, name='member_view'),
 ]
